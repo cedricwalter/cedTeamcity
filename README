@@ -1,0 +1,24 @@
+
+
+This Joomla! extension displays the status of your TeamCity continuous integration builds. TeamCity REST API is extremely rich,
+and I did made some choice concerning the ouput. Feel free to provide and send me ideas how I can improve the layout or
+by adding new functionalities!
+
+Teamcity is a distributed build management and Continuous Integration system from JetBrains, creators of IntelliJ IDEA
+and ReSharperthat allows your team to run and monitor your software building process while improving team communication,
+productivity and the integration of changes.
+
+TeamCity is a Continuous Integration and build management server .
+
+Download
+
+http://www.waltercedric.com/downloads/teamcity.html
+
+Documentation
+
+http://wiki.waltercedric.com/index.php?title=TeamCity_module_for_Joomla
+
+Demo Showcase
+
+http://demo-joomla-2.5.waltercedric.com/
+This file was modified by JetBrains PhpStorm 3.0.3 for binding GitHub repository

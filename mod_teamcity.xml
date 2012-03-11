@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<extension type="module" version="2.5" client="site" method="upgrade">
+
+    <name>Teamcity</name>
+    <author>Cedric Walter</author>
+    <creationDate>August 2010</creationDate>
+    <copyright>Walter Cedric</copyright>
+    <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+    <authorEmail>cedric.walter@gmail.com</authorEmail>
+    <authorUrl>http://www.waltercedric.com</authorUrl>
+    <version>1.0.0</version>
+    <description>MOD_TEAMCITY_DESCRIPTION</description>
+
+    <languages folder="language">
+        <language tag="en-GB">en-GB.mod_teamcity.ini</language>
+    </languages>
+
+    <files>
+        <filename module="mod_teamcity">mod_teamcity.php</filename>
+        <filename module="mod_teamcity">Teamcity.php</filename>
+        <filename module="mod_teamcity">index.html</filename>
+    </files>
+
+    <!-- Extension Update Specification -->
+    <updateservers>
+        <server type="extension" priority="1" name="Extension Update Site">http://www.waltercedric.com/update/modules/mod_twitterbadge/extension.xml</server>
+        <server type="collection" priority="2" name="Collection Update Site">http://www.waltercedric.com/update/update.xml</server>
+    </updateservers>
+
+    <media destination="mod_teamcity" folder="media">
+        <filename>index.html</filename>
+        <filename>teamcity.css</filename>
+        <filename>icon16.png</filename>
+        <filename>icon19.png</filename>
+        <filename>icon32.png</filename>
+        <filename>icon48.png</filename>
+        <filename>icon128.png</filename>
+    </media>
+
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field name="debug" type="list" default="0" label="Debug"
+                       description="Write a file in Joomla! /logs/mod_teamcity.php">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </field>
+
+                <field
+                        name="catid"
+                        type="category"
+                        extension="com_content"
+                        multiple="true"
+                        size="10"
+                        default=""
+                        required="true"
+                        label="JCATEGORY"
+                        description="Display module only in selected gategory">
+                    <option value="">JOPTION_ALL_CATEGORIES</option>
+                </field>
+
+
+                <field name="@spacer" type="spacer" default="" label=""
+                       description=""/>
+
+                <field name="teamcityIcon" type="list" default="128" label="Teamcity Icon"
+                       description="Teamcity icon size">
+                    <option value="16">16x16 pixels</option>
+                    <option value="19">19x19 pixels</option>
+                    <option value="32">32x32 pixels</option>
+                    <option value="48">48x48 pixels</option>
+                    <option value="128">128x128 pixels</option>
+                </field>
+
+
+                <field name="user" type="text" default="cedric" label="user" size="40"
+                       description="Enter a Teamcity user"/>
+
+
+                <field name="password" type="password" default="test" label="password" size="40"
+                       description="Enter the Teamcity password for that user"/>
+
+
+                <field name="teamcityServer" type="text"
+                       default="teamcity.waltercedric.com/teamcity" label="Teamcity Server" size="70"
+                       description="Enter your teamcity server, without http/https and without / at the end of the url"/>
+
+                <field name="displayBuild" type="list" default="1" label="Display Build"
+                       description="Display all Builds for each projects">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </field>
+
+                <field name="displayBuildStatus" type="list" default="1"
+                       label="Display Build Status" description="Display Build Status using css">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </field>
+
+
+            </fieldset>
+
+            <fieldset name="Rendering" label="Rendering">
+                <field name="rendering" type="list" default="Rokbox"
+                       label="Library"
+                       description="If rokbow, install http://www.rockettheme.com/extensions-joomla/rokbox">
+                    <option value="Rokbox">rokbox</option>
+                    <option value="Lightbox2">lightbox2</option>
+                    <option value="Lightbox">lightbox</option>
+                    <option value="Shadowbox">shadowbox</option>
+                    <option value="Html">html</option>
+                </field>
+            </fieldset>
+
+
+            <fieldset
+                    name="advanced">
+                <field
+                        name="layout"
+                        type="modulelayout"
+                        label="JFIELD_ALT_LAYOUT_LABEL"
+                        description="JFIELD_ALT_MODULE_LAYOUT_DESC"/>
+                <field
+                        name="moduleclass_sfx"
+                        type="text"
+                        label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+                        description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"/>
+                <field name="cache" type="list" default="1" label="Caching"
+                       description="Select whether to cache the content of this module">
+                    <option value="1">Use global</option>
+                    <option value="0">No caching</option>
+                </field>
+                <field name="cache_time" type="text" default="900" label="Cache Time"
+                       description="The time before the module is recached"/>
+                <field
+                        name="owncache"
+                        type="list"
+                        default="1"
+                        label="COM_MODULES_FIELD_CACHING_LABEL"
+                        description="COM_MODULES_FIELD_CACHING_DESC">
+                    <option
+                            value="1">JGLOBAL_USE_GLOBAL
+                    </option>
+                    <option
+                            value="0">COM_MODULES_FIELD_VALUE_NOCACHING
+                    </option>
+                </field>
+            </fieldset>
+
+        </fields>
+    </config>
+</extension>
+
