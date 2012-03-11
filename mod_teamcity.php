@@ -19,10 +19,12 @@ defined('_JEXEC') or die('Restricted access');
 
 require_once (dirname(__FILE__) . DS . 'helper.php');
 
+$layout = $params->get('layout', 'projects');
+
 $cacheParameters = new stdClass;
 $cacheParameters->cachemode = 'safeuri';
 $cacheParameters->class = 'modTeamcityHelper';
-$cacheParameters->method = 'getList';
+$cacheParameters->method = 'get'.substr($layout, 2);
 $cacheParameters->methodparams = $params;
 $cacheParameters->modeparams = array('id' => 'int', 'Itemid' => 'int');
 
@@ -31,9 +33,6 @@ $list = JModuleHelper::moduleCache($module, $params, $cacheParameters);
 if (!count($list)) {
     return;
 }
-
-$layout = $params->get('layout', 'projects');
-modTeamcityHelper::addStyleSheet();
 
 $rendering = $params->get('rendering', "rokbox");
 $teamcityIcon = $params->get('teamcityIcon', 128);

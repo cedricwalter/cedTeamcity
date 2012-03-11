@@ -16,6 +16,10 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
+
+$document =& JFactory::getDocument();
+$document->addStyleSheet('media/mod_teamcity/teamcity.css');
+
 ?>
 
 <!-- Teamcity by Cedric Walter - www.waltercedric.com -->

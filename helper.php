@@ -33,6 +33,18 @@ abstract class modTeamcityHelper
         return $Teamcity->getProjects();
     }
 
+    public static function getusers($params)
+    {
+        $user = $params->get('user', 'xxxxxx');
+        $password = $params->get('password', 'xxxxxxx');
+        $teamcityServer = $params->get('teamcityServer', 'xxxxxxx');
+
+        $Teamcity = new Teamcity($user, $password, $teamcityServer);
+
+        return $Teamcity->getUsers();
+    }
+
+
     public static function addStyleSheet()
     {
         $document =& JFactory::getDocument();

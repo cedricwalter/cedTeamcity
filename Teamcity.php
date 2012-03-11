@@ -73,6 +73,10 @@ class Teamcity
     }
 
 
+
+
+
+
     public function getBuildsOverview($projectHref)
     {
         $url = $this->server . $projectHref;
@@ -80,10 +84,12 @@ class Teamcity
         $root = new SimpleXMLElement($xml);
 
         $model = array();
+        $model['id'] = htmlspecialchars($root->attributes()->id);
         $model['description'] = htmlspecialchars($root->attributes()->description);
         $model['archived'] = htmlspecialchars($root->attributes()->archived);
         $model['webUrl'] = urlencode($root->attributes()->webUrl);
         $model['href'] = urlencode($root->attributes()->href);
+        $model['status'] = htmlspecialchars($this->getBuildStatus($model['id']));
 
         foreach ($root->buildTypes->buildType as $buildType) {
             $item = array();
@@ -140,6 +146,36 @@ class Teamcity
 
         return $status;
     }
+
+    function getUsers()
+    {
+        $url = $this->server . "/httpAuth/app/rest/users";
+
+        $xml = $this->getUrlContent($url);
+        $root = new SimpleXMLElement($xml);
+
+        $users = array();
+        foreach ($root->user as $user) {
+            $aUser = array();
+            $aUser['name'] = htmlspecialchars($user->attributes()->name);
+            $aUser['username'] = htmlspecialchars($user->attributes()->username);
+            $aUser['href'] = urlencode($user->href);
+            $users[] = $aUser;
+        }
+        return $users;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     function log($comment)
     {
