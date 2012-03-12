@@ -45,6 +45,18 @@ abstract class modTeamcityHelper
     }
 
 
+    public static function getradiator($params)
+    {
+        $user = $params->get('user', 'xxxxxx');
+        $password = $params->get('password', 'xxxxxxx');
+        $teamcityServer = $params->get('teamcityServer', 'xxxxxxx');
+
+        $Teamcity = new Teamcity($user, $password, $teamcityServer);
+
+        return $Teamcity->getProjects();
+    }
+
+
     public static function addStyleSheet()
     {
         $document =& JFactory::getDocument();

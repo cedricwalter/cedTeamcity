@@ -104,11 +104,11 @@
                 <field name="rendering" type="list" default="Rokbox"
                        label="Library"
                        description="If rokbow, install http://www.rockettheme.com/extensions-joomla/rokbox">
-                    <option value="Rokbox">rokbox</option>
-                    <option value="Lightbox2">lightbox2</option>
-                    <option value="Lightbox">lightbox</option>
-                    <option value="Shadowbox">shadowbox</option>
-                    <option value="Html">html</option>
+                    <option value="rokbox">rokbox</option>
+                    <option value="lightbox2">lightbox2</option>
+                    <option value="lightbox">lightbox</option>
+                    <option value="shadowbox">shadowbox</option>
+                    <option value="html">html</option>
                 </field>
             </fieldset>
 

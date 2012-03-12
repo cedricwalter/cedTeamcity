@@ -32,13 +32,7 @@ class Teamcity
 
     var $publicServer = null;
 
-    var $debug = true;
-
     var $logger = null;
-
-    var $displayBuild = null;
-
-    var $displayBuildStatus = null;
 
 
     function Teamcity($user, $password, $teamcityServer)
@@ -63,7 +57,7 @@ class Teamcity
             $root = new SimpleXMLElement($xml);
             foreach ($root->project as $project) {
                 $item = array();
-                $item['url'] = urlencode($this->getProjectOverviewURL($project->attributes()->id));
+                $item['url'] = urlencode($this->publicServer . $this->getProjectOverviewURL($project->attributes()->id));
                 $item['name'] = "" . $project->attributes()->name;
                 $item['build'] = $this->getBuildsOverview($project->attributes()->href);
                 $model[] = $item;
@@ -71,11 +65,6 @@ class Teamcity
         }
         return $model;
     }
-
-
-
-
-
 
     public function getBuildsOverview($projectHref)
     {
@@ -87,17 +76,20 @@ class Teamcity
         $model['id'] = htmlspecialchars($root->attributes()->id);
         $model['description'] = htmlspecialchars($root->attributes()->description);
         $model['archived'] = htmlspecialchars($root->attributes()->archived);
-        $model['webUrl'] = urlencode($root->attributes()->webUrl);
+        $model['webUrl'] = htmlspecialchars($root->attributes()->webUrl);
         $model['href'] = urlencode($root->attributes()->href);
-        $model['status'] = htmlspecialchars($this->getBuildStatus($model['id']));
 
+        $buildTypes = array();
         foreach ($root->buildTypes->buildType as $buildType) {
-            $item = array();
-            $item['status'] = htmlspecialchars($this->getBuildStatus($buildType->attributes()->id));
-            $item['id'] = htmlspecialchars($buildType->attributes()->id);
-            $item['webUrl'] = urlencode($buildType->attributes()->webUrl);
-            $model[] = $item;
+            $aBuildType = array();
+            $aBuildType['status'] = htmlspecialchars($this->getBuildStatus($buildType->attributes()->id));
+            $aBuildType['id'] = htmlspecialchars($buildType->attributes()->id);
+            $aBuildType['name'] = htmlspecialchars($buildType->attributes()->name);
+            $aBuildType['webUrl'] = htmlspecialchars($buildType->attributes()->webUrl);
+            $buildTypes[] = $aBuildType;
         }
+        $model['buildTypes'] = $buildTypes;
+
         return $model;
     }
 
@@ -109,14 +101,12 @@ class Teamcity
     private function getUrlContent($url)
     {
         $ch = curl_init($url);
-        $this->log("getUrlContent " . $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         // $output contains the output string
         $output = curl_exec($ch);
         if (curl_errno($ch)) {
-            $this->log('The domain is available!');
+            JError::raiseError(1, 'The teamcity domain '.$url.' is not available!');
         } else {
-            $this->log('The domain is not available');
         }
         curl_close($ch);
         return $output;
@@ -165,22 +155,4 @@ class Teamcity
         return $users;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-    function log($comment)
-    {
-        if ($this->debug) {
-            $this->logger->addEntry(array('comment' => $comment));
-        }
-    }
 }
